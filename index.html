@@ -86,10 +86,10 @@
         });
 
         wrapper.addEventListener('touchend', (e) => {
-            // 애니메이션이 끝난 후 스크롤 활성화
             if (currentIndex === totalItems - 1) {
+                // 애니메이션이 끝난 후 스크롤 활성화
                 wrapper.addEventListener('transitionend', function enableScrollAfterTransition(event) {
-                    if (event.target === wrapper) {
+                    if (event.target === wrapper && event.propertyName === 'transform') {
                         enableScroll();
                         wrapper.removeEventListener('transitionend', enableScrollAfterTransition);
                     }
