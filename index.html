@@ -10,6 +10,7 @@
             padding: 0;
             font-family: Arial, sans-serif;
             height: 200vh; /* 전체 페이지 스크롤 확인을 위한 높이 설정 */
+            overflow: hidden; /* 스와이프 중 페이지 스크롤 방지 */
         }
         .swipe-container {
             width: 100%;
@@ -50,9 +51,19 @@
         const totalItems = items.length;
         let isSwiping = false;
 
+        // 스크롤 잠금/해제 함수
+        function disableScroll() {
+            document.body.style.overflow = 'hidden';
+        }
+
+        function enableScroll() {
+            document.body.style.overflow = '';
+        }
+
         wrapper.addEventListener('touchstart', (e) => {
             startY = e.touches[0].clientY;
             isSwiping = false; // 스와이프 초기화
+            disableScroll(); // 스와이프 시작 시 스크롤 잠금
         });
 
         wrapper.addEventListener('touchmove', (e) => {
@@ -75,6 +86,7 @@
         });
 
         wrapper.addEventListener('touchend', (e) => {
+            enableScroll(); // 스와이프 종료 시 스크롤 해제
             if (!isSwiping) {
                 window.scrollBy(0, startY - e.changedTouches[0].clientY);
             }
