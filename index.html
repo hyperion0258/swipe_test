@@ -87,15 +87,9 @@
 
         wrapper.addEventListener('touchend', (e) => {
             if (currentIndex === totalItems - 1) {
-                // 애니메이션이 끝난 후 스크롤 활성화
-                wrapper.addEventListener('transitionend', function enableScrollAfterTransition(event) {
-                    if (event.target === wrapper && event.propertyName === 'transform') {
-                        enableScroll();
-                        wrapper.removeEventListener('transitionend', enableScrollAfterTransition);
-                    }
-                });
+                enableScroll(); // 마지막 이미지에 도달하면 스크롤 해제
             } else {
-                enableScroll(); // 마지막 이미지가 아니면 스크롤 해제
+                disableScroll(); // 마지막 이미지가 아니면 스크롤 잠금 유지
             }
         });
     </script>
