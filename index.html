@@ -53,16 +53,19 @@
 
         // 스크롤 잠금/해제 함수
         function disableScroll() {
-            document.body.style.overflowY = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
         }
 
         function enableScroll() {
-            document.body.style.overflowY = 'auto';
+            document.body.style.position = '';
+            document.body.style.width = '';
         }
 
         wrapper.addEventListener('touchstart', (e) => {
             startY = e.touches[0].clientY;
             isSwiping = false; // 스와이프 초기화
+            disableScroll(); // 스와이프 시작 시 스크롤 잠금
         });
 
         wrapper.addEventListener('touchmove', (e) => {
@@ -81,7 +84,6 @@
 
                 wrapper.style.transform = `translateY(-${currentIndex * 100}%)`;
                 startY = moveY; // 새로운 터치 포인트를 업데이트
-                disableScroll(); // 스와이프 중에는 스크롤 잠금
             }
         });
 
