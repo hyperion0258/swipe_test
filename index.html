@@ -88,8 +88,6 @@
         wrapper.addEventListener('touchend', (e) => {
             if (currentIndex === totalItems - 1) {
                 enableScroll(); // 마지막 이미지에 도달하면 스크롤 해제
-            } else {
-                disableScroll(); // 마지막 이미지가 아니면 스크롤 잠금 유지
             }
         });
     </script>
