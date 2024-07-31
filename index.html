@@ -53,13 +53,11 @@
 
         // 스크롤 잠금/해제 함수
         function disableScroll() {
-            document.body.style.position = 'fixed';
-            document.body.style.width = '100%';
+            document.body.style.overflowY = 'hidden';
         }
 
         function enableScroll() {
-            document.body.style.position = '';
-            document.body.style.width = '';
+            document.body.style.overflowY = 'auto';
         }
 
         wrapper.addEventListener('touchstart', (e) => {
@@ -84,11 +82,17 @@
 
                 wrapper.style.transform = `translateY(-${currentIndex * 100}%)`;
                 startY = moveY; // 새로운 터치 포인트를 업데이트
+
+                if (currentIndex === totalItems - 1) {
+                    enableScroll(); // 마지막 이미지에 도달하면 스크롤 해제
+                }
             }
         });
 
         wrapper.addEventListener('touchend', (e) => {
-            enableScroll(); // 스와이프 종료 시 스크롤 해제
+            if (currentIndex !== totalItems - 1) {
+                enableScroll(); // 마지막 이미지가 아니면 스크롤 해제
+            }
         });
     </script>
 </body>
