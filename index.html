@@ -63,7 +63,9 @@
         wrapper.addEventListener('touchstart', (e) => {
             startY = e.touches[0].clientY;
             isSwiping = false; // 스와이프 초기화
-            disableScroll(); // 스와이프 시작 시 스크롤 잠금
+            if (currentIndex !== totalItems - 1) {
+                disableScroll(); // 마지막 이미지가 아닐 때만 스크롤 잠금
+            }
         });
 
         wrapper.addEventListener('touchmove', (e) => {
@@ -90,6 +92,11 @@
                 enableScroll(); // 마지막 이미지에 도달하면 스크롤 해제
             }
         });
+
+        // 초기 로드 시 마지막 이미지에 도달해 있을 경우 스크롤 활성화
+        if (currentIndex === totalItems - 1) {
+            enableScroll();
+        }
     </script>
 </body>
 </html>
